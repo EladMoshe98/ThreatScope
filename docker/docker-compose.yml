@@ -1,0 +1,28 @@
+# Two services: FastAPI (hosts SecureBERT-NER) + Streamlit (thin client).
+# The model weights are baked into the api image, so runtime needs no internet.
+#
+#   docker compose -f docker/docker-compose.yml up --build
+#   UI:   http://localhost:8501     API docs: http://localhost:8000/docs
+services:
+  api:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.api
+    environment:
+      - MAX_FILE_SIZE_MB=2
+      - LOG_LEVEL=INFO
+    volumes:
+      - ../logs:/app/logs            # request log visible on the host (./logs)
+    ports:
+      - "8000:8000"
+
+  ui:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.ui
+    environment:
+      - API_URL=http://api:8000
+    depends_on:
+      - api
+    ports:
+      - "8501:8501"

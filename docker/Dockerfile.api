@@ -1,0 +1,38 @@
+# API service — FastAPI hosting SecureBERT-NER.
+# Weights are COPYed from ./models (run `python scripts/download_model.py` first),
+# so both build and runtime are fully offline / on-prem.
+FROM python:3.11-slim
+
+ENV PYTHONUNBUFFERED=1 \
+    PIP_NO_CACHE_DIR=1 \
+    NER_MODEL_PATH=/app/models/securebert-ner \
+    LOG_DB_PATH=/app/logs/requests.db \
+    LOG_FILE=/app/logs/nerf.log
+
+WORKDIR /app
+
+# --- deps (CPU-only torch) ---
+COPY requirements-api.txt .
+RUN pip install -r requirements-api.txt --extra-index-url https://download.pytorch.org/whl/cpu
+
+# --- fully offline model loading (weights are COPYed below, never downloaded) ---
+ENV HF_HUB_OFFLINE=1 \
+    TRANSFORMERS_OFFLINE=1
+
+# --- baked-in model weights (populate ./models via scripts/download_model.py) ---
+COPY models/ ./models/
+
+# --- app code ---
+COPY api/ ./api/
+
+# --- non-root user + writable log dir ---
+RUN useradd --create-home --uid 1000 appuser \
+    && mkdir -p /app/logs \
+    && chown -R appuser /app
+USER appuser
+
+EXPOSE 8000
+HEALTHCHECK --interval=30s --timeout=5s --start-period=90s --retries=3 \
+    CMD python -c "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://localhost:8000/health').status==200 else 1)"
+
+CMD ["uvicorn", "api.main:app", "--host", "0.0.0.0", "--port", "8000"]

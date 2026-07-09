@@ -1,0 +1,9 @@
+# API service (FastAPI + SecureBERT-NER). CPU-only torch.
+# Versions pinned to the tested build for reproducibility.
+fastapi==0.139.0
+uvicorn[standard]==0.51.0
+pydantic==2.13.4
+python-multipart==0.0.32        # multipart file uploads
+transformers==5.13.0
+torch==2.13.0                   # CPU build (see Dockerfile --extra-index-url)
+huggingface_hub==1.22.0         # used by scripts/download_model.py

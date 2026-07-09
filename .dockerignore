@@ -1,0 +1,17 @@
+# Keep the build context small — never ship these to the Docker daemon.
+.venv/
+.venv-cyner/
+__pycache__/
+*.pyc
+*.pyo
+.git/
+.gitignore
+logs/
+benchmark/          # benchmark is prep only — never containerized
+scripts/
+*.rar
+*.zip
+.env
+.env.example
+README.md
+# NOTE: models/ is intentionally NOT ignored — the api image COPYs the baked weights.

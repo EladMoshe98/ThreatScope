@@ -1,0 +1,4 @@
+# Normalize line endings to LF (keeps Docker/shell files correct on any OS).
+* text=auto eol=lf
+*.rar binary
+*.ipynb text eol=lf

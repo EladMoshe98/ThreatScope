@@ -1,0 +1,5 @@
+# Streamlit UI (thin client that calls the API). No model / torch here.
+# Versions pinned to the tested build for reproducibility.
+streamlit==1.59.1
+requests==2.34.2
+pandas==3.0.3
