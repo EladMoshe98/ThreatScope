@@ -42,8 +42,7 @@ NERF/
 └── .env.example
 ```
 
-> **The `benchmark/` folder is preparation, not part of the product.** It picks the
-> model; it is not built into any container.
+> **The `benchmark/` folder contains the notebook showing the benchmark process and results.** it is not built into any container.
 
 ---
 
