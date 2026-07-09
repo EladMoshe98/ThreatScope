@@ -151,6 +151,7 @@ All optional (the app runs with defaults). See `.env.example`. Key variables:
   counts, status) — never the uploaded document text.
 - **Two containers:** the model service and the UI are decoupled, so the API is
   independently usable (curl / Swagger / other clients) and the two scale separately.
+- XSS secured
 
 ## Known limitations / future work
 
@@ -158,3 +159,4 @@ All optional (the app runs with defaults). See `.env.example`. Key variables:
 - Long documents are chunked at whitespace to stay under the model's 512-token limit.
 - CyNER-large not benchmarked (weights unavailable); an ensemble of models is a
   possible v2.
+- Not multi-users friendly yet 
