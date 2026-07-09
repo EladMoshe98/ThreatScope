@@ -2,7 +2,7 @@
 
 An on-prem service that extracts **cyber-threat-intelligence entities** from text
 using **SecureBERT-NER**. It ships as two Docker containers — a FastAPI service that
-hosts the model and a Streamlit UI — and runs **fully offline**.
+hosts the model and a Streamlit UI.
 
 The model was chosen by benchmarking **SecureBERT-NER vs CyNER** (and, as an extra
 data point, SecureBERT2.0-NER) on the **DNRTI** dataset — see [Benchmark](#benchmark).
