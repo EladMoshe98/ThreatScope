@@ -1,4 +1,4 @@
-# NERF — Named Entity Recognition (File)
+# Theat Scope - Cyber Documents Named Entity Recognition
 
 An on-prem service that extracts **cyber-threat-intelligence entities** from text
 using **SecureBERT-NER**. It ships as two Docker containers — a FastAPI service that
